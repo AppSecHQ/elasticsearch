@@ -1,3 +1,4 @@
+
 /*
  * Copyright Elasticsearch B.V. and/or licensed to Elasticsearch B.V. under one
  * or more contributor license agreements. Licensed under the "Elastic License
@@ -16,6 +17,7 @@ import org.apache.lucene.util.hnsw.IntToIntFunction;
 import org.elasticsearch.simdvec.ESVectorUtil;
 
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -76,7 +78,7 @@ abstract class KMeansLocal {
      * @throws IOException is thrown if vectors is inaccessible
      */
     static float[][] pickInitialCentroids(FloatVectorValues vectors, int centroidCount) throws IOException {
-        Random random = new Random(42L);
+        SecureRandom random = new SecureRandom();
         int centroidsSize = Math.min(vectors.size(), centroidCount);
         float[][] centroids = new float[centroidsSize][vectors.dimension()];
         for (int i = 0; i < vectors.size(); i++) {
